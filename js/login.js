@@ -44,7 +44,7 @@ form.addEventListener('submit', (e) => {
 
    if (usuarioExiste) {
       localStorage.setItem('usuarioLogado', JSON.stringify(usuarioExiste));
-      window.location.href = '../pages/home.html';
+      window.location.href = '/pages/home.html';
    } else {
       alert('Email ou senha incorretos!')
    }
