@@ -1,13 +1,13 @@
 const form = document.querySelector('.form');
+const toggle = document.querySelectorAll('.toggle');
 
 const nome = document.querySelector('#nome');
 const email = document.querySelector('#email');
 const senha = document.querySelector('#senha');
 const confirmarSenha = document.querySelector('#confirmar-senha');
+const senhas = [senha, confirmarSenha];
 
 let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-console.log(usuarios)
 
 const erro = document.querySelectorAll('.erro');
 
@@ -74,12 +74,23 @@ const cadastrarUsuario = () => {
 form.addEventListener('submit', (e) => {
    e.preventDefault();
 
-  if(validarCampos()) {
-   cadastrarUsuario();
+   if (validarCampos()) {
+      cadastrarUsuario();
 
-   form.reset();
+      form.reset();
 
-   window.location.href = '../index.html';
+      window.location.href = '../index.html';
 
-  }
+   }
+});
+
+//Toggle
+
+toggle.forEach((btn, i) => {
+   btn.addEventListener('click', () => {
+      const campo = senhas[i]
+      campo.type = campo.type === 'password' ? 'text' : 'password';
+
+      btn.textContent = campo.type === 'password' ? 'Mostrar' : 'Ocultar';
+   });
 });

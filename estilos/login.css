@@ -27,7 +27,7 @@ html, body {
 }
 
 .form {
-   width: 50vw;
+   width: 500px;
 
    background-color: var(--branco);
    padding: 10px;
@@ -55,28 +55,38 @@ html, body {
    left: 0;
 }
 
-.inputs {
-   margin-bottom: 20px;
+.labels {
+   margin-top: 10px;
 }
 
-.inputs label {
+.labels label {
    display: block;
    font-weight: 500;
    color: var(--cinza-escuro);
    margin-bottom: 5px;
 }
 
-.inputs label::placeholder {
+.labels label::placeholder {
    color: var(--cinza);
+}
+
+.inputs {
+   border-bottom: 1px solid var(--roxo-azulado);
 }
 
 .inputs input {
    outline: none;
    border: none;
-   border-bottom: 1px solid var(--roxo-azulado);
+   width: 300px;
    padding: 5px;
-   width: 100%;
    color: var(--cinza-escuro);
+}
+
+.toggle {
+   font-size: .8em;
+   color: var(--roxo-hover);
+
+   cursor: pointer;
 }
 
 .erro {
@@ -96,7 +106,7 @@ input[type=submit] {
 }
 
 .enviar {
-   margin-bottom: 20px;
+   margin-block: 20px;
 }
 
 input[type=submit]:hover {
@@ -115,6 +125,6 @@ input[type=submit]:hover {
 
 @media (max-width: 840px) {
    .form {
-      width: 90vw;
+      width: 450px;
    }
 }

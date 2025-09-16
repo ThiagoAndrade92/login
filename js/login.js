@@ -1,4 +1,6 @@
+//Variaveis
 const form = document.querySelector('.form');
+const toggle = document.querySelector('.toggle');
 
 const email = document.querySelector('#email');
 const senha = document.querySelector('#senha');
@@ -7,6 +9,7 @@ const erros = document.querySelectorAll('.erro');
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+//Resgatar usuarios
  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
  const validarCampos = () => {
@@ -35,6 +38,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
    return valido;
  };
 
+ //Formulario
 form.addEventListener('submit', (e) => {
    e.preventDefault();
 
@@ -49,4 +53,11 @@ form.addEventListener('submit', (e) => {
       alert('Email ou senha incorretos!')
    }
 } 
-})
+});
+
+//Toggle
+toggle.addEventListener('click',() => {
+   senha.type === 'password' ? senha.type = 'text' : senha.type = 'password';
+
+   senha.type === 'password' ? toggle.textContent = 'Mostrar' : toggle.textContent = 'Ocultar';
+});
