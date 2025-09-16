@@ -1,0 +1,20 @@
+:root {
+   --roxo-azulado: #4f46e5;
+   --roxo-hover: #6366f1;
+   --branco: #fff;
+}
+
+.btn button {
+   border: none;
+   padding: 5px 10px;
+   border-radius: 4px;
+   background-color: var(--roxo-azulado);
+   color: var(--branco);
+   box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+   cursor: pointer;
+   transition: background-color .2s ease-in;
+}
+
+.btn button:hover {
+   background-color: var(--roxo-hover);
+}
