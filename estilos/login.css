@@ -112,3 +112,9 @@ input[type=submit]:hover {
    text-decoration: none;
    color: var(--roxo-azulado);
 }
+
+@media (max-width: 840px) {
+   .form {
+      width: 90vw;
+   }
+}

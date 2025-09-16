@@ -114,3 +114,9 @@ input[type=submit] {
 input[type=submit]:hover {
    background-color: var(--roxo-hover);
 }
+
+@media (max-width: 840px) {
+   .form {
+      width: 90vw;
+   }
+}
