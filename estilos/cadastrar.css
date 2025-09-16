@@ -127,16 +127,6 @@ input[type=submit]:hover {
 
 @media (max-width: 840px) {
    .form {
-      width: 450px;
-   }
-}
-
-@media (max-width: 480px) {
-   .form {
       width: 90vw;
-   }
-
-   .inputs input {
-      width: 150px;
    }
 }
