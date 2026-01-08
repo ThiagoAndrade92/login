@@ -1,6 +1,8 @@
 //Variaveis
 const form = document.querySelector('.form');
 const toggle = document.querySelector('.toggle');
+const fechar = document.getElementById('fechar');
+const aviso = document.querySelector('.aviso');
 
 //Resgatar usuarios
 const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
@@ -128,3 +130,8 @@ if (toggle) {
       toggle.textContent = senhaInput.type === 'password' ? 'Mostrar' : 'Ocultar';
    });
 };
+
+//Botão de fechar
+fechar.addEventListener('click', () => {
+   aviso.classList.add('sumir');
+});

@@ -35,6 +35,32 @@ html, body {
    box-shadow: 2px 2px 4px rgba(0, 0, 0, .3);
 }
 
+.aviso {
+   position: fixed;
+   width: 500px;
+   height: 300px;
+
+   background-color: yellow;
+   padding: 10px;
+   border-radius: 4px;
+   box-shadow: 2px 2px 4px rgba(0, 0, 0, .3);
+   z-index: 999;
+}
+
+.aviso.sumir {
+   opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+#fechar {
+   background-color: transparent;
+   border: none;
+   font-weight: 600;
+   float: right;
+   cursor: pointer;
+}
+
 .titulo-login {
    width: 100px;
 }
@@ -124,7 +150,11 @@ input[type=submit]:hover {
 }
 
 @media (max-width: 840px) {
-   .form {
-      width: 90vw;
-   }
+   .form{
+   width: 90vw;
+}
+.aviso {
+   height: 300px;
+   width: 95vw;
+}
 }
