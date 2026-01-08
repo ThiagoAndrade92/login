@@ -2,62 +2,129 @@
 const form = document.querySelector('.form');
 const toggle = document.querySelector('.toggle');
 
-const email = document.querySelector('#email');
-const senha = document.querySelector('#senha');
+//Resgatar usuarios
+const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-const erros = document.querySelectorAll('.erro');
-
+//emailRegex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-//Resgatar usuarios
- const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+const campos = [
+   { id: "email", validador: validarEmail },
+   { id: "senha", validador: validarSenha },
+];
 
- const validarCampos = () => {
-   let valido = true;
+const campoVazio = (value) => {
+   return value.trim() === '';
+};
 
-   erros.forEach(span => span.textContent = '');
-
-   //Email
-   if (email.value.trim() === '') {
-      erros[0].textContent = 'O email obrigatório!';
-      valido = false;
-   } else if (!emailRegex.test(email.value)) {
-      erros[0].textContent = 'Digite um email válido!';
-      valido = false;
+// função para validar email
+function validarEmail(value) {
+   const validador = {
+      valido: true,
+      erroMsg: null,
    }
 
-   //Senha
-   if(senha.value.trim() === '') {
-      erros[1].textContent = 'A senha é obrigatória!';
-      valido = false;
-   } else if (senha.value.length < 6) {
-      erros[1].textContent = 'A senha deve ter no mínimo 6 caracteres!'
-      valido = false;
+   if (campoVazio(value)) {
+      validador.valido = false;
+      validador.erroMsg = "O email é obrigatório!";
+      return validador
    }
 
-   return valido;
- };
+   if (!emailRegex.test(value)) {
+      validador.valido = false;
+      validador.erroMsg = "Digite um email válido!";
+   }
+   return validador;
+};
 
- //Formulario
-form.addEventListener('submit', (e) => {
+
+//função para validar senha
+function validarSenha(value) {
+   const validador = {
+      valido: true,
+      erroMsg: null,
+   };
+
+   if (campoVazio(value)) {
+      validador.valido = false;
+      validador.erroMsg = 'A senha é obrigatória!';
+      return validador;
+   }
+
+   const min = 6
+   if (value.length < 6) {
+      validador.valido = false;
+      validador.erroMsg = `A senha deve ter no mínimo ${min} caracteres!`;
+      return validador;
+   }
+
+   return validador;
+}
+
+//função para validar formulário
+const validarFormulario = () => {
+   let formularioValido = true;
+   const dados = {};
+
+   campos.forEach(({ id, validador }) => {
+
+      const input = document.getElementById(id);
+      if (!input) {
+         formularioValido = false;
+         return;
+      };
+
+      const valor = input.value.trim();
+      dados[id] = valor;
+
+      const label = input.closest('.labels');
+      if (!label) return;
+
+      const spanErro = label.querySelector('.erro');
+      if (!spanErro) return;
+
+      const campoValidador = validador(valor);
+
+      spanErro.textContent = '';
+
+      if (!campoValidador.valido) {
+         spanErro.textContent = `${campoValidador.erroMsg}`;
+         formularioValido = false;
+      };
+
+   });
+
+   return formularioValido ? dados : null;
+};
+
+//enviar o formulário
+form.addEventListener("submit", (e) => {
    e.preventDefault();
 
-   if (validarCampos()) {
+   const dados = validarFormulario();
+   if (!dados) return;
 
-   const usuarioExiste = usuarios.find((u) => u.email === email.value && u.senha === senha.value)
+   const usuarioExiste = usuarios.find((u) => u.email === dados.email && u.senha === dados.senha);
 
-   if (usuarioExiste) {
-      localStorage.setItem('usuarioLogado', JSON.stringify(usuarioExiste));
-      window.location.href = './pages/home.html';
-   } else {
-      alert('Email ou senha incorretos!')
-   }
-} 
+    if (usuarioExiste) {
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuarioExiste));
+            window.location.href = './pages/home.html';
+         } else {
+            alert('Email ou senha incorretos!')
+         }
 });
 
 //Toggle
-toggle.addEventListener('click',() => {
-   senha.type === 'password' ? senha.type = 'text' : senha.type = 'password';
 
-   senha.type === 'password' ? toggle.textContent = 'Mostrar' : toggle.textContent = 'Ocultar';
-});
+if (toggle) {
+
+   toggle.addEventListener('click', () => {
+      const senhaInput = document.getElementById('senha');
+
+      if(!senhaInput) return;
+
+      senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
+   
+      toggle.textContent = senhaInput.type === 'password' ? 'Mostrar' : 'Ocultar';
+   });
+};
