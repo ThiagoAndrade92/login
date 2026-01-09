@@ -168,6 +168,8 @@ form.addEventListener('submit', (e) => {
 
    form.reset();
 
+   alert('Cadastro feito com sucesso!');
+
    window.location.href = '../index.html';
 });
 
